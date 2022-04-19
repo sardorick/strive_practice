@@ -3,7 +3,6 @@ from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.preprocessing import StandardScaler, OrdinalEncoder
 from sklearn.compose import ColumnTransformer
 import numpy as np
-from train import train
 import data_handler as dh
 x_train, x_test, y_train, y_test = dh.get_data("07. Gradient Boosting and Encoding/insurance.csv")
 
