@@ -1,19 +1,20 @@
-from train import rf_regressor, ab_regressor, gb_regressor, xg_regressor
+from catboost import train
+from train import train
 from train import x_test, x_train, y_train, y_test
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import GradientBoostingRegressor
 
+hyper_params = {
+    "n_estimators": [100, 200, 500],
+    "max_depth": [3, 6, 9],
+    "learning_rate": [0.001, 0.01, 0.1, 1]
+}
 
-predict_1 = rf_regressor.predict(x_test)
-predict_1_results = (predict_1 == y_test).sum() / (len(y_test))
-print(f'The accuracy of the Random Forest regressor is {predict_1_results}')
+GS = GridSearchCV(estimator=GradientBoostingRegressor(), param_grid = hyper_params, scoring = ["r2", "neg_root_mean_squared_error"],
+                    refit = "r2", cv = 5, verbose=4)
 
-predict_2 = ab_regressor.predict(x_test)
-predict_2_results = (predict_2 == y_test).sum() / (len(y_test))
-print(f'The accuracy of the Adaboost regressor is {predict_2_results}')
+GS.fit(x_train, y_train)
 
-predict_3 = gb_regressor.predict(x_test)
-predict_3_results = (predict_3 == y_test).sum() / (len(y_test))
-print(f'The accuracy of the Gradient boost regressor is {predict_3_results}')
+print(GS.best_params_)
 
-predict_4 = xg_regressor.predict(x_test)
-predict_4_results = (predict_4 == y_test).sum() / (len(y_test))
-print(f'The accuracy of the XG regressor is {predict_4_results}')
+# best params: 'learning_rate': 0.01, 'max_depth': 3, 'n_estimators': 500

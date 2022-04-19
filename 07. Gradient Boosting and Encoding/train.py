@@ -4,19 +4,21 @@ from sklearn.ensemble import RandomForestRegressor, AdaBoostRegressor, GradientB
 from xgboost import XGBRegressor
 
 
-# rf_model = RandomForestRegressor()
-# ab_model = AdaBoostRegressor(learning_rate=0.1)
-# gb_model = GradientBoostingRegressor(learning_rate=0.01)
-# xg_model = xgboost.XGBRegressor()
+
+
+models = [RandomForestRegressor(), XGBRegressor(), AdaBoostRegressor(), GradientBoostingRegressor(learning_rate=0.01, max_depth=3, n_estimators=500)] # took the params from the GridSearchCV on test.py
 
 x_train, x_test, y_train, y_test = dh.get_data(r"C:\Users\Lenovo\OneDrive\Documents\Strive repos\strive_practice\07. Gradient Boosting and Encoding\insurance.csv")
 
-# rf_regressor = rf_model.fit(x_train, y_train)
-# ab_regressor = ab_model.fit(x_train, y_train)
-# gb_regressor = gb_model.fit(x_train, y_train)
-# xg_regressor = xg_model.fit(x_train, y_train)
 
-models = [RandomForestRegressor(), GradientBoostingRegressor, XGBRegressor(), AdaBoostRegressor()]
+def train(x_train, x_test, y_train, y_test):
+    scores = []
+    for model in models:
+        model.fit(x_train, y_train)
+        # check score
+        score = model.score(x_test, y_test)
+        scores.append(score)
+    return scores
 
-for model in models:
-    print(cross_val_score(model, x_train, y_train).mean())
+print(train(x_train, x_test, y_train, y_test))
+
