@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler, OrdinalEncoder
 from sklearn.compose import ColumnTransformer
 import numpy as np
 import data_handler as dh
-x_train, x_test, y_train, y_test = dh.get_data("07. Gradient Boosting and Encoding/insurance.csv")
+from train import x_train, x_test, y_train, y_test
 
 
 model = GradientBoostingRegressor(learning_rate=0.01, max_depth=3, n_estimators=500)
@@ -27,7 +27,7 @@ def get_input():
 def predict_input(inps):
     # inps = np.array(inps).reshape(1, -1)   
     # scaled_inputs = scaler.fit(inps)
-    ct = ColumnTransformer( [('ordinal', OrdinalEncoder(handle_unknown= 'use_encoded_value', unknown_value = -1), [5, 0] )], remainder='passthrough')
+    ct = ColumnTransformer( [('ordinal', OrdinalEncoder(handle_unknown= 'use_encoded_value', unknown_value = -1), [1,4,5] )], remainder='passthrough')
     cted = ct.fit_transform(inps)
 
     # return cted

@@ -6,7 +6,7 @@ from xgboost import XGBRegressor
 
 
 
-models = [RandomForestRegressor(), XGBRegressor(), AdaBoostRegressor(), GradientBoostingRegressor(learning_rate=0.01, max_depth=3, n_estimators=500)] # took the params from the GridSearchCV on test.py
+models = [RandomForestRegressor(), XGBRegressor(), AdaBoostRegressor(), GradientBoostingRegressor()] # took the params from the GridSearchCV on test.py
 
 x_train, x_test, y_train, y_test = dh.get_data(r"C:\Users\Lenovo\OneDrive\Documents\Strive repos\strive_practice\07. Gradient Boosting and Encoding\insurance.csv")
 
