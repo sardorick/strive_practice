@@ -32,7 +32,7 @@ def predict_input(inps):
 
     # return cted
     train = model.fit(x_train, y_train)
-    predictions = model.predict(inps)
+    predictions = model.predict(cted)
     '''
     Preprocess
     predict
