@@ -53,10 +53,10 @@ def models_pipe():
 x_train, x_val, y_train, y_val = train_test_split(x, y, test_size=0.2, stratify=y, random_state=0)
 
 
+results = pd.DataFrame({'Model': [], 'Accuracy': [], 'Bal Acc.': [], 'Time': []})
 
 def predict_models():
-    results = pd.DataFrame({'Model': [], 'Accuracy': [], 'Bal Acc.': [], 'Time': []})
-
+    global results
     for model_name, model in models_pipe().items():
         start_time = time.time()
         
@@ -78,8 +78,7 @@ def predict_models():
 def cross_vall():
     skf = model_selection.StratifiedKFold(shuffle=True, random_state=0)
 
-
-    results = pd.DataFrame({'Model': [], 'Accuracy': [], 'Bal Acc.': [], 'Time': []})
+    global results
     for model_name, model in models_pipe().items():
         start_time = time.time()
             
