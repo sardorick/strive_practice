@@ -94,7 +94,7 @@ def data_enhance(data):
     return gen_data
 
 # print(data.head(3))
-gen = data_enhance(data)
+gen = data_enhance(data) # enhanced data variable
 # print(gen.head(3))
 
 y = data['cnt']
@@ -111,9 +111,9 @@ x_train, x_val, y_train, y_val = model_selection.train_test_split(x, y,
                                 )
 
 # Applying enhancement to 25% of the data
-extra_sample = gen.sample(gen.shape[0] // 4)
-x_train = pd.concat([x_train, extra_sample.drop(['cnt'], axis=1 ) ])
-y_train = pd.concat([y_train, extra_sample['cnt'] ])
+enhanced_sample = gen.sample(gen.shape[0] // 4)
+x_train = pd.concat([x_train, enhanced_sample.drop(['cnt'], axis=1 ) ])
+y_train = pd.concat([y_train, enhanced_sample['cnt'] ])
 
 # Transorming the data to make it more like Gaussian-distributed?
 transformer = preprocessing.PowerTransformer()
@@ -124,31 +124,31 @@ y_val = transformer.transform(y_val.values.reshape(-1,1))
 
 rang = abs(y_train.max()) + abs(y_train.min())
 # Creating pipelines for num and cat data, and then creating a transformer pipeline
-num_4_treeModels = pipeline.Pipeline(steps=[
+num_4_treeModels = pipeline.Pipeline([
     ('imputer', impute.SimpleImputer(strategy='constant', fill_value=-9999)),
 ])
 
-cat_4_treeModels = pipeline.Pipeline(steps=[
+cat_4_treeModels = pipeline.Pipeline([
     ('imputer', impute.SimpleImputer(strategy='constant', fill_value='missing')), # constant strategry
     ('ordinal', preprocessing.OrdinalEncoder())  
 
 ])
 
-tree_prepro = compose.ColumnTransformer(transformers=[
+tree_prepro = compose.ColumnTransformer([
     ('num', num_4_treeModels, num_vars),
     ('cat', cat_4_treeModels, cat_vars),
 ], remainder='drop') # Drop other vars not specified in num_vars or cat_vars
 
 # making a dict with differet regression models
 tree_classifiers = {
-  "Decision Tree": DecisionTreeRegressor(),
-  "Extra Trees":   ExtraTreesRegressor(n_estimators=100),
-  "Random Forest": RandomForestRegressor(n_estimators=100),
-  "AdaBoost":      AdaBoostRegressor(n_estimators=100),
-  "Skl GBM":       GradientBoostingRegressor(n_estimators=100),
+  "Decision Tree": DecisionTreeRegressor(random_state=0),
+  "Extra Trees":   ExtraTreesRegressor(random_state=0),
+  "Random Forest": RandomForestRegressor(random_state=0),
+  "AdaBoost":      AdaBoostRegressor(random_state=0),
+  "Skl GBM":       GradientBoostingRegressor(random_state=0),
   "XGBoost":       XGBRegressor(n_estimators=100),
-  "LightGBM":      LGBMRegressor(n_estimators=100),
-  "CatBoost":      CatBoostRegressor(n_estimators=100),
+  "LightGBM":      LGBMRegressor(random_state=0),
+  "CatBoost":      CatBoostRegressor(random_state=0),
 }
 
 # applying pipe to models by choosing dict values
@@ -177,4 +177,4 @@ results_ord = results.sort_values(by=['MSE'], ascending=True, ignore_index=True)
 results_ord.index += 1 
 results_ord.style.bar(subset=['MSE', 'MAE'], vmin=0, vmax=100, color='#5fba7d')
 
-# print(results_ord)
+print(results_ord)
