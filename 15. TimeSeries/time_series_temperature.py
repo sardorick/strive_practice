@@ -18,7 +18,7 @@ def pairing(data, seq_len=6):
         for j in range(seq_len):
             seq[j] = data.values[i+j]
 
-        x.append(seq.flatten())
+        x.append(seq)
         y.append(data["T (degC)"][i+seq_len])
     return np.array(x), np.array(y)
 
@@ -29,27 +29,26 @@ x, y = pairing(data)
 # print(x.shape)
 # print(y.shape)
 
-# def getfeatures(data):
+def getfeatures(data):
 
-#     # for holding extracted features
-#     new_data = []
-#     # get each group
-#     for i in range(data.shape[0]):
+    # for holding extracted features
+    new_data = []
+    # get each group
+    for i in range(data.shape[0]):
 
-#         group = []   # to hold extracted elements from each column
-#         names = []
-#         # get each column within each group
-#         for j in range(data.shape[2]):
+        group = []   
+        # get each column within each group
+        for j in range(data.shape[2]):
 
-#             group.append(np.mean(data[i][:, j]))  # mean
-#             group.append(np.std(data[i][:, j]))  # standard deviation
-#             group.append(data[i][:, j][-1])      # last element
+            group.append(np.mean(data[i][:, j]))  # mean
+            group.append(np.std(data[i][:, j]))  # standard deviation
+            group.append(data[i][:, j][-1])      # last element
 
-#         new_data.append(group)
+        new_data.append(group)
 
-#     return np.array(new_data)              
+    return np.array(new_data)              
 
-
+x = getfeatures(x)
 
 x_train, y_train = x[:45000], y[:45000]
 x_test, y_test = x[45000:], y[45000:]
