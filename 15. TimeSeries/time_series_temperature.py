@@ -28,18 +28,26 @@ x, y = pairing(data)
 # x_df = pd.DataFrame(x)
 # print(x.shape)
 # print(y.shape)
-# def extract_feature(df):
-#     features = []
-#     features.append(np.std(df.values[:, 0]))
-#     features.append(np.std(df.values[:, 0]))                 
-#     features.append(np.std(df.values[:, 0]))
-#     features.append(np.std(df.values[:, 0]))                  
-#     features.append(np.std(df.values[:, 0]))
-#     features.append(np.std(df.values[:, 0]))                  
-#     features.append(np.std(df.values[:, 0]))
-#     features.append(np.std(df.values[:, 0]))                  
-#     features.append(np.std(df.values[:, 0]))
-#     features.append(np.std(df.values[:, 0]))                  
+
+# def getfeatures(data):
+
+#     # for holding extracted features
+#     new_data = []
+#     # get each group
+#     for i in range(data.shape[0]):
+
+#         group = []   # to hold extracted elements from each column
+#         names = []
+#         # get each column within each group
+#         for j in range(data.shape[2]):
+
+#             group.append(np.mean(data[i][:, j]))  # mean
+#             group.append(np.std(data[i][:, j]))  # standard deviation
+#             group.append(data[i][:, j][-1])      # last element
+
+#         new_data.append(group)
+
+#     return np.array(new_data)              
 
 
 
@@ -65,13 +73,13 @@ models = {name: pipeline.make_pipeline(model) for name, model in models_reg.item
 results = pd.DataFrame({'Model': [], 'MSE': [], 'MAB': [], 'Time': []})
 
 for model_name, model in models_reg.items():
-    # iterate through every model in the classifier dict and train and predict
+    # iterate through every model in the model dict and train and predict
     start_time = time.time()
     model.fit(x_train, y_train)
     total_time = time.time() - start_time
         
     pred = model.predict(x_test)
-    # change results accordingly
+    # Each model result
     results = results.append({"Model":    model_name,
                               "MSE": mean_squared_error(y_test, pred),
                               "MAB": mean_absolute_error(y_test, pred),
@@ -81,3 +89,11 @@ for model_name, model in models_reg.items():
 
 results_ord = results.sort_values(by=['MSE'], ascending=True, ignore_index=True)
 print(results_ord)
+
+"""
+           Model       MSE       MAB        Time
+0    Extra Trees  0.046142  0.139590   76.331506
+1  Random Forest  0.046882  0.140182  238.846753
+2        Skl GBM  0.062394  0.173206   76.581876
+3       AdaBoost  0.361889  0.463528   38.058786
+"""
