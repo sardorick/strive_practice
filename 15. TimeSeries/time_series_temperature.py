@@ -4,6 +4,7 @@ from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor, AdaBoos
 from sklearn import pipeline
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 import time
+from sklearn.model_selection import train_test_split
 
 data = pd.read_csv('15. TimeSeries\climate.csv')
 data = data.drop(['Date Time'], axis=1)
@@ -50,8 +51,7 @@ def getfeatures(data):
 
 x = getfeatures(x)
 
-x_train, y_train = x[:45000], y[:45000]
-x_test, y_test = x[45000:], y[45000:]
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
 
 # model = RandomForestRegressor()
 
