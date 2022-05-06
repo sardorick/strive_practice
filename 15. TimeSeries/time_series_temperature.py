@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor, AdaBoos
 from sklearn.preprocessing import StandardScaler
 from sklearn import pipeline
 from sklearn.compose import ColumnTransformer
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.metrics import mean_absolute_error, r2_score
 import time
 from sklearn.model_selection import train_test_split
 np.random.seed(0)
@@ -85,11 +85,11 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_
 scaler = pipeline.Pipeline(steps=[ ('scaler', StandardScaler()) ])
 ctr = ColumnTransformer(transformers=[('num', scaler)], remainder="passthrough")
 models_reg = {
-  "Extra Trees":   ExtraTreesRegressor(random_state=0),
+  "Extra Trees": ExtraTreesRegressor(random_state=0),
   "Random Forest": RandomForestRegressor(random_state=0),
-  "AdaBoost":      AdaBoostRegressor(random_state=0),
-  "Skl GBM":       GradientBoostingRegressor(random_state=0),
-}
+  "AdaBoost": AdaBoostRegressor(random_state=0),
+  "Skl GBM": GradientBoostingRegressor(random_state=0)
+  }
 
 models = {name: pipeline.make_pipeline(ctr, model) for name, model in models_reg.items()}
 
@@ -144,4 +144,13 @@ print(results_ord)
 1  Random Forest  0.994175  0.460484  32.676212
 2    Extra Trees  0.993828  0.478168  11.387216
 3       AdaBoost  0.989156  0.663890   2.999767
+"""
+# Tested SVR, was taking a lot of time
+"""
+           Model        R2       MAB        Time
+0        Skl GBM  0.994565  0.442818   11.131765
+1  Random Forest  0.994175  0.460484   35.891266
+2    Extra Trees  0.993828  0.478168   12.716232
+3       AdaBoost  0.989156  0.663890    2.990572
+4            SVC  0.972451  1.088901  350.642661
 """
