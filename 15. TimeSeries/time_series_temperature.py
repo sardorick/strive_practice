@@ -30,7 +30,8 @@ p (armb)          -0.045375
 rh (%)            -0.572416
 rho (g/m**3)      -0.963410
 """
-data = data.drop(columns=["wd (deg)", "max. wv (m/s)", "wv (m/s)", "p (armb)"])
+data = data.drop(columns=["wd (deg)", "max. wv (m/s)", "wv (m/s)", "p (armb)"]) # dropping the columns that aren't well correlated
+
 def get_sequence(data, target_name,  seq_len=6):
 
     seq_list = []
@@ -79,11 +80,11 @@ def get_features(data):
 
 x = get_features(x)
 # print(x.shape)
-
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
+all_features = [0, 0]
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0, shuffle=False)
 
 scaler = pipeline.Pipeline(steps=[ ('scaler', StandardScaler()) ])
-ctr = ColumnTransformer(transformers=[('num', scaler)], remainder="passthrough")
+ctr = ColumnTransformer(transformers=[('num', scaler, all_features)], remainder="passthrough")
 models_reg = {
   "Extra Trees": ExtraTreesRegressor(random_state=0),
   "Random Forest": RandomForestRegressor(random_state=0),
@@ -91,7 +92,7 @@ models_reg = {
   "Skl GBM": GradientBoostingRegressor(random_state=0)
   }
 
-models = {name: pipeline.make_pipeline(ctr, model) for name, model in models_reg.items()}
+models_reg = {name: pipeline.make_pipeline(ctr, model) for name, model in models_reg.items()}
 
 results = pd.DataFrame({'Model': [], 'R2': [], 'MAB': [], 'Time': []})
 
@@ -138,12 +139,12 @@ print(results_ord)
 3       AdaBoost  0.839446  2.663351   4.398919
 """
 # With scaled columns and mean for all 10 of them
-"""
-           Model        R2       MAB       Time
-0        Skl GBM  0.994565  0.442818  10.576430
-1  Random Forest  0.994175  0.460484  32.676212
-2    Extra Trees  0.993828  0.478168  11.387216
-3       AdaBoost  0.989156  0.663890   2.999767
+"""           
+Model        R2       MAB       Time
+0        Skl GBM  0.993880  0.431412  11.585121
+1  Random Forest  0.993351  0.455956  39.748912
+2    Extra Trees  0.992938  0.474027  11.939690
+3       AdaBoost  0.986147  0.684923   3.724845
 """
 # Tested SVR, was taking a lot of time
 """
@@ -152,5 +153,5 @@ print(results_ord)
 1  Random Forest  0.994175  0.460484   35.891266
 2    Extra Trees  0.993828  0.478168   12.716232
 3       AdaBoost  0.989156  0.663890    2.990572
-4            SVC  0.972451  1.088901  350.642661
+4            SVR  0.972451  1.088901  350.642661
 """
