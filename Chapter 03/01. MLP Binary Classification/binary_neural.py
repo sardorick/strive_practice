@@ -29,7 +29,6 @@ class Classifier(nn.Module):
 
 model = Classifier(2, 10, 10, 10)
 
-epochs = 100
 
 criterion = nn.BCELoss()
 data = pd.read_csv('Chapter 03/01. MLP Binary Classification/data.csv', header=None)
@@ -72,6 +71,6 @@ def fit(x_train, x_test, y_train, y_test, model, criterion, lr, num_epochs):
     # plt.plot(test_losses)
     # plt.show()
 
-model = fit(x_train, x_test, y_train, y_test, model, criterion, lr=0.01, num_epochs=1000)
+model = fit(x_train, x_test, y_train, y_test, model, criterion, lr=0.01, num_epochs=100)
 
 # print(y_test.shape)
