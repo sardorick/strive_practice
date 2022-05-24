@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
+np.random.seed(0)
 
 class Classifier(nn.Module):
     def __init__(self, input_dim, numhidden1, numhidden2, numhidden3):
@@ -33,7 +34,7 @@ epochs = 100
 criterion = nn.BCELoss()
 data = pd.read_csv('Chapter 03/01. MLP Binary Classification/data.csv', header=None)
 x = torch.tensor(data.drop(2, axis=1).values, dtype=torch.float)
-y = torch.tensor(data[1].values, dtype=torch.float).view(-1, 1)
+y = torch.tensor(data[2].values, dtype=torch.float).reshape(-1, 1)
 x_train, x_test, y_train, y_test = train_test_split(x,y, test_size=0.3)
 
 def fit(x_train, x_test, y_train, y_test, model, criterion, lr, num_epochs):
@@ -56,10 +57,21 @@ def fit(x_train, x_test, y_train, y_test, model, criterion, lr, num_epochs):
             test_loss = criterion(test_preds, y_test)
             test_losses.append(test_loss.item())
 
-            #
+        # check model accuracy
+        pred_label = []
+        for pred in test_preds:
+            pred_label.append(1) if pred > 0.5 else pred_label.append(0)
+        pred_label = torch.tensor(pred_label).reshape(-1, 1)
+        acc = (pred_label == y_test).sum() / len(y_test)
+        print(f'Accuracy of the model for the epoch {epoch} is {acc}')
+
+
         model.train()
-    plt.plot(train_losses)
-    plt.plot(test_losses)
-    plt.show()
+    # print(acc)
+    # plt.plot(train_losses)
+    # plt.plot(test_losses)
+    # plt.show()
 
 model = fit(x_train, x_test, y_train, y_test, model, criterion, lr=0.01, num_epochs=1000)
+
+# print(y_test.shape)
