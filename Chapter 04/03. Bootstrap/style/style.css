@@ -25,3 +25,7 @@
     margin-right: 40px;
     margin-bottom: 20px;
 }
+.container-lg {
+    flex: auto !important;
+
+}
