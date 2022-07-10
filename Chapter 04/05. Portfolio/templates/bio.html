@@ -1,5 +1,19 @@
 {% macro bio() %}
 
+<!-- Favicon -->
+<link href="img/favicon.ico" rel="icon">
+
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"> 
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
 <div class="animated-hero-bg-container">
     <section class="gradient-bg">
         <div class="bg-circle_1"></div>
@@ -16,11 +30,13 @@
             <p class="bio">
                 I am a Machine Learning Engineer passionate about data and I am based in Poland. My current focus is Computer Vision and Convolutional Neural Networks.
             </p>
-            <div class="div-block-13">
-                <a href="mailto:szokirov@outlook.com?subject=Website%20Mail" class="button-3 w-button>" style="color: snow;">Send an email</a>
-                <a href="https://drive.google.com/file/d/1HhSWfpaccR37EkTa46fD9sm2x1Ara9Qu/view?usp=sharing" target="_blank" class="button-6 w-button" style="color: snow">View Resume</a>
+            <button type="button" class="btn btn-primary">
+                <a href="https://drive.google.com/file/d/1HhSWfpaccR37EkTa46fD9sm2x1Ara9Qu/view?usp=sharing" target="_blank" class="button-6 w-button" style="color: snow; text-decoration: none;">View Resume</a>
 
-            </div>
+            </button>
+            <button type="button" class="btn btn-danger">
+                <a href="mailto:szokirov@outlook.com?subject=Website%20Mail" class="button-3 w-button>" style="color: snow; text-decoration: none;">Send an email</a>
+            </button>
             <img src="photo_2022-07-04 14.27.53.jpeg" alt class="mobile-pic">
         </div>
     </div>
@@ -32,11 +48,44 @@
 
 
 </div>
+<!-- About Start -->
+<div class="container-fluid py-5" id="about">
+    <div class="container">
+        <div style="margin-bottom: 30px; margin-left: 0px;" class="position-relative d-flex align-items-center justify-content-center">
+            <h1 class="position-absolute text-uppercase text-primary">About Me</h1>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-lg-5 pb-4 pb-lg-0">
+                <img class="img-fluid rounded w-100" src="./photo_2022-07-04 14.27.53.jpeg" alt=" ">
+            </div>
+            <div class="col-lg-7">
+                <h3 class="mb-4">Machine Learning Engineer</h3>
+                <p>I am a Machine Learning Engineer looking to kick-start my career in the field. </p>
+                <div class="row mb-3">
+                    <div class="col-sm-6 py-2"><h6>Name: <span class="text-secondary">Sardorbek Zokirov</span></h6></div>
+                    <div class="col-sm-6 py-2"><h6>Degree: <span class="text-secondary">Master</span></h6></div>
+                    <div class="col-sm-6 py-2"><h6>Phone: <span class="text-secondary">+48 502 425 869</span></h6></div>
+                    <div class="col-sm-6 py-2"><h6>Email: <span class="text-secondary">szokirov@outlook.com</span></h6></div>
+                    <div class="col-sm-6 py-2"><h6>LinkedIn: <a target="_blank" href="https://www.linkedin.com/in/sardorbekzokirov/">Sardorbek Zokirov</a></h6></div>
+                    <div class="col-sm-6 py-2"><h6>Freelance: <span class="text-secondary">Available</span></h6></div>
+                    <div class="col-sm-6 py-2"><h6>Interests: <span class="text-secondary">Technologies, Aviation, Cars, Football, Formula 1</span></h6></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
 <section id="Featured" class="blog-tabs-section wf-section">
+    <h1 class="header-portfolio" style="font-family: Roboto, serif; display: flex; justify-content: center;">Personal Projects</h1>
     <div data-duration-in="0" data-duration-out="0" data-current="Tab 2" data-easing="ease" class="blogs-tabs w-tabs">
-        <div class="blog-tabs-content w-tab content">
+        <div class="blog-tabs-content w-tab-content">
             <div data-w-tab="Tab 2" class="w-tab-pane w--tab-active" id="w-tabs-0-data-w-pane-0" role="tabpanel" aria-labelledby="w-tabs-0-data-w-tab-0">
                 <div data-w-id="bb027a10-8260-b23c-1993-a04c4cc17c79" class="article-2">
+                    <div class="blog-preview-related-2">
+                        <img sizes="(max-width: 479px) 100vw, (max-width: 767px) 68vw, (max-width: 991px) 30vw, (max-width: 1279px) 31vw, 342.5703125px"
+                        srcset="https://uploads-ssl.webflow.com/5fe3ab22c331aa6c89389bed/61eb5a962feaaaae8770a6fa_pexels-lukas-574077-p-1080.jpeg 1080w, https://uploads-ssl.webflow.com/5fe3ab22c331aa6c89389bed/61eb5a962feaaaae8770a6fa_pexels-lukas-574077.jpg 1280w" loading="lazy" style="margin-left: -40px">
+                    </div>
                     <div class="article-text-wrapper-2">
                         <div class="blog-tag">Computer Vision, Python</div>
                         <h4 class="heading-3 bigger">
@@ -48,6 +97,10 @@
                             This is some information about the project. This is some information about the project. This is some information about the project. 
                         </p>
                     </div>
+                    <div class="blog-preview-related-2">
+                        <img sizes="(max-width: 479px) 100vw, (max-width: 767px) 68vw, (max-width: 991px) 30vw, (max-width: 1279px) 31vw, 342.5703125px"
+                        srcset="https://uploads-ssl.webflow.com/5fe3ab22c331aa6c89389bed/61eb5a962feaaaae8770a6fa_pexels-lukas-574077-p-1080.jpeg 1080w, https://uploads-ssl.webflow.com/5fe3ab22c331aa6c89389bed/61eb5a962feaaaae8770a6fa_pexels-lukas-574077.jpg 1280w" loading="lazy"  style="margin-left: -40px">
+                    </div>
                     <div class="article-text-wrapper-2">
                         <div class="blog-tag">Computer Vision, Python</div>
                         <h4 class="heading-3 bigger">
@@ -58,6 +111,10 @@
                         <p>
                             This is some information about the project. This is some information about the project. This is some information about the project. 
                         </p>
+                    </div>
+                    <div class="blog-preview-related-2">
+                        <img sizes="(max-width: 479px) 100vw, (max-width: 767px) 68vw, (max-width: 991px) 30vw, (max-width: 1279px) 31vw, 342.5703125px"
+                        srcset="https://uploads-ssl.webflow.com/5fe3ab22c331aa6c89389bed/61eb5a962feaaaae8770a6fa_pexels-lukas-574077-p-1080.jpeg 1080w, https://uploads-ssl.webflow.com/5fe3ab22c331aa6c89389bed/61eb5a962feaaaae8770a6fa_pexels-lukas-574077.jpg 1280w" loading="lazy"  style="margin-left: -40px">
                     </div>
                     <div class="article-text-wrapper-2">
                         <div class="blog-tag">Data Analytics, Python</div>
@@ -75,5 +132,51 @@
         </div>
     </div>
 
-</div>      
+
+</div>
+<!-- Qualification Start -->
+<div class="container-fluid py-5" id="qualification">
+    <div class="container">
+        <div style="margin-bottom: 30px;" class="position-relative d-flex align-items-center justify-content-center">
+            <h1 class="position-absolute text-uppercase text-primary">Education & Expericence</h1>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h3 class="mb-4">My Education</h3>
+                <div class="border-left border-primary pt-2 pl-4 ml-2">
+                    <div class="position-relative mb-4">
+                        <i class="far fa-dot-circle text-primary position-absolute" style="top: 2px; left: -32px;"></i>
+                        <h5 class="font-weight-bold mb-1">Master In Computer Science</h5>
+                        <p class="mb-2"><strong>WSB University</strong> | <small>October 2021 - June 2023</small></p>
+                        <p>Currently in the process of pursuing my Master of Science degree in Computer Science at WSB University in Poland. </p>
+                    </div>
+                    <div class="position-relative mb-4">
+                        <i class="far fa-dot-circle text-primary position-absolute" style="top: 2px; left: -32px;"></i>
+                        <h5 class="font-weight-bold mb-1">Data Scienctist</h5>
+                        <p class="mb-2"><strong>EPICODE Global</strong> | <small> February 2022 - August 2022</small></p>
+                        <p>Studying at the EPICODE Global Data Science bootcamp to boost my knowledge in the field of Data Science and Machine Learning. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h3 class="mb-4">My Expericence</h3>
+                <div class="border-left border-primary pt-2 pl-4 ml-2">
+                    <div class="position-relative mb-4">
+                        <i class="far fa-dot-circle text-primary position-absolute" style="top: 2px; left: -32px;"></i>
+                        <h5 class="font-weight-bold mb-1">Senior Game Admin</h5>
+                        <p class="mb-2"><strong>Keywords Studios</strong> | <small>September 2020 - March 2022</small></p>
+                        <p>Part of the Player Experience Engineering team at a well-known title at Keywords Studios, one of the leading service providers in the gaming industry</p>
+                    </div>
+                    <div class="position-relative mb-4">
+                        <i class="far fa-dot-circle text-primary position-absolute" style="top: 2px; left: -32px;"></i>
+                        <h5 class="font-weight-bold mb-1">International Marketing Specialist</h5>
+                        <p class="mb-2"><strong>VEO Worldwide Services</strong> | <small>November 2019 - August 2020</small></p>
+                        <p>Worked as a marketing specialist specializing in International Trade.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Qualification End -->      
 {%- endmacro %}
