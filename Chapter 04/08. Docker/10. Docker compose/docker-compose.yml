@@ -10,6 +10,11 @@ services:
       - 5000:5000
     env_file:
       - ./.env.dev
+    depends_on:
+      db:
+        condition: service_healthy
+
+      
 
   db:
     image: postgres:13-alpine
@@ -19,6 +24,12 @@ services:
       - POSTGRES_USER=strive
       - POSTGRES_PASSWORD=test
       - POSTGRES_DB=students_db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
 
 volumes:
   postgres_data:
