@@ -1,5 +1,4 @@
-from enum import unique
-from flask import Flask
+from flask import Flask, request
 from flask_restful import Api, Resource, reqparse
 from flask_sqlalchemy import SQLAlchemy
 
@@ -21,31 +20,33 @@ class Striver(db.Model):
 
 class Striver_api(Resource):
     def get(self):
-        args_parser = reqparse.RequestParser()
-        args_parser.add_argument('email', type=str)
-        args = args_parser.parse_args()
-        email_ = args['email']
+        # args_parser = reqparse.RequestParser()
+        # args_parser.add_argument('email', type=str)
+        # args = args_parser.parse_args()
+
+        email_ = request.args['email']
         try:
             striver_info = db.session.query(Striver).filter_by(email=email_).first()
             return {'Name': striver_info.name, 'email': striver_info.email}
         except:
             return {'Error': 'Couldnt insert email'}
 
-        return {'email': email}
+        return {'email': email_}
 
     def post(self):
-        args_parser = reqparse.RequestParser()
-        args_parser.add_argument('email', type=str)
-        args_parser.add_argument('name', type=str)
+        # args_parser = reqparse.RequestParser()
+        # args_parser.add_argument('email', type=str)
+        # args_parser.add_argument('name', type=str)
 
-        args = args_parser.parse_args()
-        email_ = args['email']
-        name_ = args['name']
+        # args = args_parser.parse_args()
+        email_ = request.form['email']
+        name_ = request.form['name']
         try:
             db.session.add( Striver(email=email_, name=name_) )
             db.session.commit()
             return {'email': email_, 'name': name_}
-        except:
+        except Exception as exc:
+            print(exc)
             return {'Error': 'Couldnt insert email'}
 api.add_resource(Striver_api, '/striver')
 
